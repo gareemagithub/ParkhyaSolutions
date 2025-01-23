@@ -1,0 +1,215 @@
+# driver.quit() - use to close all the windows and driver.close() - use to close a specific browser
+# executeScript - JavaScriptExecutor is a class and we have to cast driver. once it is done the with JS reference we have method executeScript use to execute JS code
+
+driver.navigate().refresh()
+window pop-up  -  another window is getting opened
+     driver.findElement(By.xpath("xpath of window which is getting popedup")).click();
+     Set<String> handler = driver.getWindowHandles();
+     Iterator <String> it = handler.iterator()
+     String parentWindowId= it.next();
+     System.out.println("parent window id: " +parentWindowId);
+     String childWindowId= it.next();
+     System.out.println("parent window id: " +childWindowId);
+     driver.switchTo().window(childWindowId);
+     System.out.println("child window pop up title "+driver.getTitle());
+     driver.close();
+     driver.switchTo().window(parentWindowId);
+     System.out.println("parent window pop up title "+driver.getTitle());
+
+Object repository - normal file name will be "config.properties" use to define data, key-value pair data will be store.
+          inside config.properties - name = "Tom", age = 25, url = "www.gooogle.com"
+                 ########## Register page - insert data ##########
+                 firstName = David
+                 lastName = Peter
+                 city = london
+                 ########## Register page- object repsitory #######
+                 firstname_xpath = //*[@id='firstname']
+                 lastname_xpath = //*[@id='lastname']
+                 city_xpath = //*[@id='city']
+
+          Properties prop= new Properties();
+          FileInputStream ip= new FileInputStream("path of config.properties");
+          prop.load(ip);
+          System.out.println(prop.getProperty("name"));  - name is the key which we have declared in config.properties and make sure that key should be same
+          driver.get(url);
+          driver.findElement(By.xpath(prop.getProperty("firstname_xpath))).sendKeys(props.getProperty("firstName"));
+
+HtmlUnitDriver()- no browser launching(testing is happening behind the scene), execution of testcase is very fast, 
+                  not suitable for action class, ghost driver(becoz not visible), headless browser
+
+JavaScriptExecutor - flash - highlighting the particular thing 
+                    public static void flash(WebElement element, WebDriver driver){
+                        JavaScriptExecutor js = ((JavaScriptExecutor) driver);
+                        String bgcolor =  element.getCssValue("backgroundColor");
+                        for(int i=0;i<100;i++){
+                              changeColor("rgb(0,200,0)", element,driver);
+                              changeColor(bgcolor, element,driver);
+                        }
+                      }
+                      public static void changeColor(String color, WebElement element, WebDriver driver){
+                        JavaScriptExecutor js = ((JavaScriptExecutor) driver);
+                        js.executeScript("arguments[0].style.backgroundColor = '"+color+"'", element);
+
+                        try{
+                              Thread.sleep(20);
+                        }catch(InterruptedException e){
+                        }
+                      }
+
+                      public static void drawBorder(WebElement element, WebDriver driver){  //it will draw border all arounf login button
+                        JavaScriptExecutor js = ((JavaScriptExecutor) driver);
+                        js.executeScript("arguments[0].style.border='3px solid red'", element);
+                      }
+                      public static void generateAlert(WebDriver driver, String message){
+                        JavaScriptExecutor js = ((JavaScriptExecutor) driver);
+                        js.executeScript("alert('"+message+"')");
+                      }
+                      public static void clickElementByJS(WebElement element, WebDriver driver){  // it will click that particular element
+                        JavaScriptExecutor js = ((JavaScriptExecutor) driver);
+                        js.executeScript("arguments[0].click();",element);
+                      }
+                      public static void refreshBrowser(WebDriver driver){   //refresh the browser   
+                        JavaScriptExecutor js = ((JavaScriptExecutor) driver);
+                        js.executeScript("history.go(0)");
+                      }
+                      public static String getTitleByJs(WebDriver driver){
+                        JavaScriptExecutor js = ((JavaScriptExecutor) driver);
+                        String title = js.executeScript("return document.title;").toString();
+                        return title;
+                      }
+                      public static String getPageInnerText(WebDriver driver){
+                        JavaScriptExecutor js = ((JavaScriptExecutor) driver);
+                        String pageText = js.executeScript("return document.documenElement.innerText;").toString();
+                        return pageText;
+                      }
+                      public static void scrollPageDown(WebDriver driver){
+                        JavaScriptExecutor js = ((JavaScriptExecutor) driver);
+                        js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+                      }
+                      public static void scrollIntoView(WebElement element, WebDriver driver){
+                        JavaScriptExecutor js = ((JavaScriptExecutor) driver);
+                        js.executeScript("arguments[0].scrollIntoView(true);",element);
+                      }
+
+Difference between isDisplayed(), isEnabled(), isSelected()
+       1. isDisplayed() -  applicable for all the elements, use to verify the presence of elements
+          boolean b1= driver.findElement(By.id("submitButton")).isDisplayed();
+          System.out.println(b1);
+
+       2. isEnabled() - use to verify that element is enabled or disabled, use with buttons like submit or next
+          boolean b2= driver.findElement(By.id("submitButton")).isEnabled();
+          System.out.println(b2);
+
+       3. isSelected() - only applicable for checkbox, dropdown, radiobutton, verify if element is selected or not like agree conditions
+          boolean b3 = driver.findElement(By.id("agreeTerms")).isSelected();
+          System.out.println(b3);
+
+Handle dynamic webtable - 
+    suppose contact is there and there are data present in it in the form of table so if we want to fetch it we can do it with the xpath but it abs one which is not preferable
+    then we will do it
+    //*[@id='vContactsform']/table/tbody/tr[4]/td[2]/a
+    //*[@id='vContactsform']/table/tbody/tr[5]/td[2]/a
+    //*[@id='vContactsform']/table/tbody/tr[6]/td[2]/a
+    //*[@id='vContactsform']/table/tbody/tr[7]/td[2]/a
+
+    Method - 1
+
+    String before_xpath = "//*[@id='vContactsform']/table/tbody/tr[";
+    String after_xpath = "]/td[2]/a";
+
+    for(int i=4;i<=7;i++){
+      String name= driver.findElement(By.xpath(before_xpath+i+after_xpath)).getText();
+      System.out.println(name);
+      if(name.contains("test2 test2)){
+            driver.findElement(By.xpath("//*[@id='vContactsform']/table/tbody/tr["+i+"]/td[1]/input")).click();
+      }
+    }
+
+    Method - 2
+
+    driver.findElement(By.xpath("a[contains(text(),'test2 test2')]/parent::td//preceding-sibling::td//input[@name='contact_id']")).click();
+
+------------------------------------------------------------------------------------------------------------------------
+
+How to perform dynamic search
+        suppose you are searching on google testing and getting some suggestion and want to click on anyone, descendant- give you hierarchy
+        List<WebElement> list = driver.findElement(By.xpath("//ul[@role='listbox']//li/descendant::div[@class='sbqs_c]"));
+     
+How to handle calendar
+        check if it is in frame 
+        driver.switchTo().frame("frame_name");
+
+        String date = "1-september-2017";
+        String dateArr[] = date.split("-");
+        String day = dateArr[0];
+        String month = dateArr[1];
+        String year = dateArr[2];
+
+        Select select = new Select(driver.findElement(By.name("name_of_month")));
+        select.selectByVisibleText(month);
+
+        Select select1 = new Select(driver.findElement(By.name("name_of_year")));
+        select1.selectByVisibleText(year);
+
+        String before_xpath = "//*[@id='crmcalendar']/table/tbody/tr[2]/td/table/tbody/tr[";
+        String after_xpath = "]/td[";
+        final int totalWeekDays = 7;
+        boolean flag= false;
+        for(int rowNum=2; rowNum<=7; rowNum++){
+          for(int colNum=1; colNum<=7;colNum++){
+            String dayVal= driver.findElement(By.xpath(before_xpath+rowNum+after_xpath+colNum+"]")).getText();
+
+            if(dayVal.equals(day)){
+              driver.findElement(By.xpath(By.xpath(before_xpath+rowNum+after_xpath+colNum+"]")).click();
+              flag=true;
+              break;
+            }
+          }
+          if(flag)  break;
+        }
+
+Handle calendar by JavaScriptExecutor
+    WebElement date= driver.findElement(By.id("name_of_id"));
+    String dateValue = "20-12-2017";  //it is issue there becoz we can add 32 as date also becoz JS is injecting
+
+    selectDateByJs(driver, date, dateVal);
+    
+    public static void selectDateByJs(Webdriver driver, WebElement element, String dateVal){
+      JavaScriptExecutor js= ((JavaScriptExecutor)driver);
+      js.executeScript("arguments[0].setAttribute('value','"+dateVal+"');",element);
+    }
+
+xpath - 
+    link - 
+       1. //a[text()='Features']
+       2. //a[contains(text(), 'Features')]
+
+       td precedance parent
+          child input name='contact_id'
+       td contains text = "test2 test2" child
+       td forward
+
+       //a[text()='test2 test2']//parent::td[@class='datalistrow']//preceding-sibling::td[@class='datalistrow']//input[@name='contact_id']
+
+    button -
+       1. //button[@type='button' and class='btn']
+       2. //button[contains(text(),'Sign Up')]
+       3. //div[@class='dropdown']//button[@type='button' and @class='btn btn-secondary dropdown-toggle' and @id='dropdownMenuButton']
+
+-----------------------------------------------------------------------------------------------------------------
+
+Selenium Architecture - 
+     selenium library  - interanlly creating a JSON payload collect all information
+         |
+         |
+     JSON wire protocol over HTTP - clickElementByJS
+        |
+        |
+      Browser Drivers
+         |
+         |                          
+      Real browser
+
+HTML DOM(Document Object Model) - interface available in the form of APIs     
+       
+TestNG - unit testing framework    

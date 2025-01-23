@@ -1,0 +1,276 @@
+StackTrace
+PriorityQueue
+class loader
+can we create object of interface/abstract classcan we declare array as final
+use of main method
+different ways to create objects
+why object class is super class
+Difference between pop and oop
+
+// Array methods
+
+int[] arr={7,2,3,10,5,1,6};
+int[] arr2={9,2,3,8,5,1,6};
+
+Arrays.sort(arr);
+int index = Arrays.binarySearch(arr, 3);
+int index1 = Arrays.mismatch(arr, arr2); // give index 0 because 7 and 9 are mismatch
+int[] arrClone = arr.clone(); 
+Arrays.fill(arr, 42);
+boolean isEqual = Arrays.equals(arr, arr2);
+int hashCode = Arrays.hashCode(arr); 
+System.out.println(Arrays.toString(arr)); 
+String[] arr1 = {"a", "b", "c"};
+List<String> list = Arrays.asList(arr1);
+
+// Math Methods
+
+int a=5;
+int =7;
+
+Math.max(a,b);
+Math.min(a,b);
+Math.sqrt(a);
+Math.pow(a,b);
+Math.log(a);
+Math.exp(a);
+Math.round(a);
+Trignometric formulas- Math.cos(a),Math.sin(a)
+
+Wrapper Class allows primitive types to be treated as objects
+String is not a wrapper class because there is no corresponding primitive type.
+Autoboxing is the automatic conversion of primitive data types to their corresponding wrapper classes.
+Regex - used in email and password for authentication purpose.
+
+//String Methods
+
+String str="Gareema";
+
+str.charAt();
+str.length();
+str.substring(0,4);
+str.equals(str1);
+str.concat("is good");
+str.replace(" ","");
+str.split(" ");
+str.indexOf("r");
+str.trim();
+str.toLowerCase();
+str.toUpperCase();
+str.startsWith("G");
+str.endsWith("a");
+
+Object class - Every class in Java is directly or indirectly derived from the Object class. If a class does not extend 
+any other class then it is a direct child class of the Java Object class and if it extends another class then it is 
+indirectly derived. 
+After try immediate line is of catch block or finally statements if anything else is written then code will not compile
+
+// Methods
+
+toString() method
+hashCode() method
+equals(Object obj) method
+finalize() method
+getClass() method
+clone() method
+wait(), notify() notifyAll() 
+
+Exception-  Checked- compile time, throws
+            Unchecked- runtime, throw
+
+Polymorphism- Compile Time- overloading
+              Runtime- overriding
+
+Multiple exceptions can be catched by single catch block using pipe (|) catch (IOException | SQLException e) 
+Error- OutOfMemoryError, StackOverflowError due to System
+Exception- due to program IOException, SQLException
+
+.join()- Makes the current thread wait for another thread to finish, Does not require synchronized blocks, no notification mechanism required
+.wait()- Makes the current thread wait until it is notified by another thread, 	Must be called from within a synchronized block or method,
+         notification required either notify() or notifyAll()
+
+Multithreading methods-
+
+.start()
+.run()
+.sleep()
+.currentThread() - used to return a reference to the currently executing thread object.
+.jon()
+.isAlive()
+.yield()- causes the currently executing thread object to temporarily pause and allow other threads to execute.
+.suspend()- puts the thread from running to waiting state. 
+.resume() - used with suspend() method it is used to resume a thread which was suspended using suspend() method.
+.stop() - Once a thread is stopped, it cannot be restarted by start() method.
+.destroy()- It is used to destroy the thread group and all of its subgroups.
+
+no construct() and register() method in the Thread class.
+
+lifecycle of threadNew
+- Active
+- Blocked / Waiting
+- Timed Waiting
+- Terminated
+
+Thread scheduler- It decides which thread to run or execute and which thread to wait 
+Exception propagation it is the process by which an exception is passed from one method to another in the call stack, 
+until it is either handled or reaches the top of the stack. 
+If it's not caught and handled along the way, the program will terminate.
+
+Collection is called interface in java whereas Collections is called a utility class in java
+
+The Collection framework - architecture for storing and manipulating a group of objects. It enhances code efficiency and readability
+   by offering various data structures, including arrays, linked lists, trees,etc.
+
+The Iterable interface is the root interface for all the collection classes. The Collection interface extends the Iterable interface 
+   and therefore all the subclasses of Collection interface also implement the Iterable interface.
+
+List -  It is a data structure in which we can store the ordered collection of objects.
+       we can increase capacity of arraylist by .ensureCapacity(20) it will add 20 more elements. Initial capacity is 10 and you can 
+       trim the capacity .trimToSize()
+
+Vector - Vector uses a dynamic array to store the data elements. It is similar to ArrayList it is synchronized 
+
+- variables declared in an interface are implicitly public, static, and final.
+
+Set/ List Methods-
+
+.add()
+.addAll(collection)
+.remove()
+.removeAll(collection)
+.isEmpty()
+.contains()
+.containsAll(collection)
+.size()
+.clear()
+
+HashSet- uses a Hashtable to store the elements, does not provide any insertion order, faster performance, uses equals() and hashCode(), allows only one null value. 
+
+LinkedHashSet - uses a HashTable and doubly linked list to store elements, provides an insertion order, lower performance, uses equals() and hashCode(),allows only one null value.
+
+TreeSet - If you want to sort the elements according to some Comparator then use TreeSet, By default, objects will be placed according to their natural 
+         ascending order, uses compare() and compareTo() methods, does not permit null value. If you insert null value into TreeSet, it will throw NullPointerException.
+
+Iterable is an interface in Java that allows an object to be iterated (looped) over using an Iterator
+
+                                          Iterable
+                                             |
+                                          Collection
+                                          |    |    |
+                                        List  Set  Queue 
+                                                   |   |
+                                        PriorityQueue  |
+                                                      Deque
+                                                        |
+                                                   ArrayDeque
+
+PriorityQueue - By default, it behaves like a min-heap (smallest element has the highest priority), does not allow null elements because they cannot be compared.
+
+Queue Methods- 
+
+.add() - IllegalStateException if the queue is full
+.offer() - adds element
+.remove() - NoSuchElementException if the queue is empty
+.poll() - remove element
+.peek() - it will return null
+.element() - it will give the top element but if queue is empty it will give exception (NoSuchElementException)
+.size()
+.isEmpty()
+.clear()
+
+HashMap - not any specific order,  one null key, uses hashtable, Uses hashCode, Un-Synchronized, Allows one null key and multiple null values, faster
+HashTable - Synchronized, Does not allow null keys or values, Slower
+LinkedHashMap - maintaion insertion order,  one null key, Extends HashMap, with a linked list, Uses hashCode
+TreeMap - Sorted order based on keys, does not allow null key, Implements Red-Black Tree, Uses compareTo() or a Comparator 
+
+ENUM - enum (enumeration) is a special data type that represents a collection of constants (unchangeable variables).
+      They are used to define variables that can only take a set of predefined values.
+
+Comparable - compareTo() - it will check if length is equal than it will sub the unicode, if length is different then -1, if same than 0, it will return in numbers like 1 means that the current object is lexicographically greater than the object being compared., 
+             -1 for negative, 0 both objects are equal.
+             you can not use compareTo with twice and in same method you can use it anywhere wether it is string, int, float
+             String str1 = "apple";
+             String str2 = "Apple";
+             int result = str1.compareTo(str2);
+             System.out.println(result);  it will give 32 as output because 'a' (from "apple") has a Unicode value of 97.
+                                          'A' (from "Apple") has a Unicode value of 65.
+
+ConcurrentHashMap() - more threadsafe than hashmap, does not allow null key or values, optimized, Multi-threaded applications with high concurrency
+                      Methods - 
+                        .equals()
+                        .hashCode()
+                        .clear()
+                        .computeIfAbsent() -  Computes a value for the given key using the specified function if the key is not already in the map. If key is already present and no modification is done.
+                        .computeIfPresent() -If the key is present in the map, applies the provided function to the key and its associated value and updates the value. If the key is not present, the map remains unchanged, and no action is performed.
+                        .compute() - if key is present then it is updated with the new value. if key is absent tehn it will add it
+                        .containsKey()
+                        .contains()- contain value or not
+                        .elements()
+                        .entrySet()
+                        .equals()
+                        .forEach() - performs the given action for each key, value pair
+                        .get()
+                        .replace()
+                        .remove()
+                        .put()
+                        .putIfAbsent()
+                        .putAll()
+                        .getOrDefault() - returns the value to which the specified key is mapped, or the given default value if this map contains no mapping for the key.
+                        .mappingCount()
+                        .newKeySet() - create a new key set
+
+Iterator - use to retrieve elements one by one. Methods - .hasNext(),.next(), .remove()
+ListIterartor - provides bi-directional iteration, used when we want to enumerate elements of List. Methods - .add(), .hasNext(), .hasPrevious(), .next(), .previous(),.remove()
+
+Set - HashSet: Order is not guaranteed and may vary
+      LinkedHashSet: Insertion order preserved, not sorted
+      TreeSet: Sorted order (natural order)
+
+Enumeration - It is use for retierval of data like iterator but in todays world iterator is in more use just because it has more functionality
+
+Assertions - used to test assumptions in your code during development. should not be used in production code.
+             They help catch bugs by verifying that conditions are true at specific points in the program.
+
+synchronization - the process that allows only one thread at a particular time to complete a given task entirely. It means only one thread can have the lock of the synchronized 
+                  method and use it, other threads have to wait till the lock releases and anyone of them acquire that lock. 
+
+Java Networking - connecting two or more computing devices( hardware that perform tasks such as processing data, executing programs, and storing or 
+                  retrieving information eg- pcs, mobile phones, game console) together so that we can share resources.
+                  Terminologies - 
+                  - IP Address - 
+                        IPv4: Composed of four sets of numbers (e.g., 192.168.1.1).
+                        IPv6: A newer format, consisting of eight groups of hexadecimal numbers 
+
+                  - Protocol - set of rules for performing communication 
+                        TCP - Transmission Control Protocol - connection-oriented protocol that ensures reliable data transmission.
+                        UDP - User Datagram Protocol - connection-less protocol that transmits data without establishing a connection, transfer data packets between nodes
+                        FTP - File Transfer Protocol - operates on a client-server model, Telnet
+
+                  - Port Number - uniquely identify different applications. 
+                        Ports 0–1023 are reserved for common services (e.g., HTTP uses port 80, HTTPS uses port 443).
+                        Registered Ports: Ports 1024–49151 are used by software applications.
+                        Dynamic/Private Ports: Ports 49152–65535 are used for ephemeral (temporary) connections.
+
+                  - MAC Address - protocol that manages how devices within a network gain access to the communication medium to transmit data and handling issues like collisions.
+                 
+                  - connection-oriented protocol, acknowledgement is sent by the receiver. It is slow. The example is TCP.
+                 
+                  - connection-less protocol, acknowledgement is not sent by the receiver. It is fast. The example is UDP.
+
+                  - A socket is an endpoint for sending or receiving data across a network. It is defined by an IP address and a port number. A socket allows communication 
+                    between processes over a network.
+
+Java Socket programming - used for communication between the applications running on different JRE.
+
+URL - Uniform Resource Locator. 
+     Methods - getProtocol(), getHost(), getPort(), getFile(), getAuthority(), toString()
+
+The InetAddress class in Java is part of the java.net package and provides methods to handle IP addresses and domain names
+
+JDK- contains executor part, java compiler
+JRE- is for customers
+
+Java does not support pointer due to security reason, because if you get the address of any variable you could access it anywhere from the program without any restriction even variable is private
+
+At compile time                                     At run time
+sourcecode --> compiler --> ByteCode      ---->  JIT compiler-->Native machine code      JIT(Just-In-Time)
