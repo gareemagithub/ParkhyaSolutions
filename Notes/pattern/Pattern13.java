@@ -27,7 +27,7 @@ public class Pattern13 {
         //     System.out.println(); 
         // }
 
-        int rows = 5; 
+        int rows = 6; 
         for (int i = 0; i < rows; i++) {
             int number = 1; 
 
